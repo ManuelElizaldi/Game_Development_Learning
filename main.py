@@ -47,5 +47,6 @@ while run:
     # capture all changes within the game loop
     pygame.display.update()
 
+# this stops the program, you need this to exit the game loop
 pygame.quit()
 
