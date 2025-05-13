@@ -10,6 +10,9 @@ screen = pygame.display.set_mode((screen_width, screen_hight))
 
 # adding feature - character
 # doing it before game loop as preparation
+# rect args -> (left - x, top - y, width, height)
+# if we set left and top -> 0, 0, you place the rect in the top left corner of the screen
+# 2d games have this type of coordinate system
 player = pygame.Rect((300, 250, 50, 50))
 
 # game loop
@@ -40,7 +43,7 @@ while run:
     
     # event handler - we are looking at all events
     for event in pygame.event.get():
-        print(event)
+        #print(event)
         if event.type == pygame.QUIT:
             run = False
 

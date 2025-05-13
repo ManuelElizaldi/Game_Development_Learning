@@ -9,9 +9,14 @@ screen_hight = 600
 screen = pygame.display.set_mode((screen_width, screen_hight))
 pygame.display.set_caption("Bouncing Ball")
 
-# defining rgb colors
+# screen color 
 black = (0,0,0)
+
+# defining circle properties
 red = (255, 0, 0)
+circle_center_x = 400
+circle_center_y = 300
+circle_radius = 50
 
 # creating ball object
 ball = pygame.draw.circle(surface = screen, color = red, center = [100, 100], radius = 40)
@@ -29,15 +34,11 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-            
+    
+    ball = pygame.draw.circle(screen, red, center = [100, 100], radius = 40)
+    ball = ball.move(speed)
+    
     pygame.display.update()
 
-    # move the ball
-    ball_object = ball_object.move(speed)
-    
-    if ball_object.left <= 0 or ball_object.right >= screen_width:
-        speed[0] = -speed[0]
-    if ball_object.top <= 0 or ball_object.bottom >= screen_hight:
-        speed[1] = -speed[1]
     
 pygame.quit()
