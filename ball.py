@@ -35,7 +35,7 @@ while run:
     screen.fill(black)
     
     # drawing circle
-    ball = pygame.draw.circle(screen, red, center = [circle_center_x, circle_center_y], radius = 40)
+    ball = pygame.draw.circle(screen, red, center = [circle_center_x, circle_center_y], radius = circle_radius)
     ball = ball.move([x_velocity, y_velocity])
     
     # movement - current state: too fast! 
