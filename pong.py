@@ -17,8 +17,8 @@ yellow = (255, 255, 0)
 # ball
 ball_x = 200 
 ball_y = 100
-ball_x_velocity = 5
-ball_y_velocity = 5
+ball_x_velocity = 0.4
+ball_y_velocity = 0.4
 ball_radius = 30
 
 
