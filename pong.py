@@ -22,7 +22,7 @@ ball_y_velocity = 0.4
 ball_radius = 30
 
 
-# paddles
+# paddles - these could be 1 variable
 left_paddle_y = 0
 right_paddle_y = 0
 
@@ -37,6 +37,7 @@ right_paddle = pygame.Rect((785, right_paddle_y, paddle_width, paddle_height))
 # ball
 ball = pygame.draw.circle(surface = screen, color = yellow, center = [ball_x, ball_y], radius = 30)
 
+# game loop
 run = True
 while run:
     # screen color
@@ -69,23 +70,36 @@ while run:
     # top wall
     elif ball_y < 0:
         ball_y_velocity = abs(ball_y_velocity)
-        
-    # paddle movement
+      
+    #paddle movement
     key = pygame.key.get_pressed()
-    # left paddle moves up
-    if key[pygame.K_w] == True:
-        left_paddle.move_ip(0, -abs(paddle_velocity))
-    # left paddle moves down
-    elif key[pygame.K_s] == True:
-        left_paddle.move_ip(0, paddle_velocity)
+    if key[pygame.K_w]:
+        left_paddle_y -= paddle_velocity
+    elif key[pygame.K_s]:
+        left_paddle_y += paddle_velocity
+
+    if key[pygame.K_o]:
+        right_paddle_y -= paddle_velocity
+    elif key[pygame.K_l]:
+        right_paddle_y += paddle_velocity
+
+
+    # Paddle maximum and minimums - this prevents the paddle to go flying off the screen
+    if left_paddle_y < 0:
+        left_paddle_y = 0
+    elif left_paddle_y > screen_height - paddle_height:
+        left_paddle_y = screen_height - paddle_height
     
-    if key[pygame.K_o] == True:
-        right_paddle.move_ip(0, -abs(paddle_velocity))
-        
-    elif key[pygame.K_l] == True:
-        right_paddle.move_ip(0, paddle_velocity)
-    
-    
+    if right_paddle_y < 0:
+        right_paddle_y = 0
+    elif right_paddle_y > screen_height - paddle_height:
+        right_paddle_y = screen_height - paddle_height
+
+
+    # important to sync up variables
+    left_paddle.y = left_paddle_y
+    right_paddle.y = right_paddle_y
+
     # event handler - we are looking at all events
     for event in pygame.event.get():
         #print(event)
