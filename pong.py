@@ -8,6 +8,11 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Pong")
 
+def ball_to_center(ball_x, ball_y):
+    ball_x = screen_width // 2
+    ball_y = screen_height // 2 
+    return ball_x, ball_y
+
 # colors
 black = (0, 0, 0)
 red = (255, 0, 0)
@@ -26,9 +31,12 @@ ball_radius = 30
 left_paddle_y = 0
 right_paddle_y = 0
 
-paddle_velocity = 5
+paddle_velocity = 0.7
 paddle_height = 100
 paddle_width = 20
+
+# wait period
+wait_period = 700
 
 # paddles
 left_paddle = pygame.Rect((0, left_paddle_y, paddle_width, paddle_height))
@@ -42,7 +50,7 @@ run = True
 while run:
     # screen color
     screen.fill(black)
-    
+     
     # drawing paddles 
     ball = pygame.draw.circle(surface = screen, color = yellow, center = [ball_x, ball_y], radius = 50)
     ball = ball.move([ball_x_velocity, ball_y_velocity])
@@ -56,12 +64,22 @@ while run:
     ball_y += ball_y_velocity
 
     # left wall
+    # only bounce if the ball is inside the left paddle 
     if ball_x < 0:
-        ball_x_velocity = abs(ball_x_velocity)
+        if (ball_y > left_paddle_y) and (ball_y < left_paddle_y + paddle_height):
+            ball_x_velocity = abs(ball_x_velocity)
+        else:
+            pygame.time.wait(wait_period)
+            ball_x, ball_y = ball_to_center(ball_x, ball_y)
     
     # right wall    
-    elif ball_x > screen_width:
-        ball_x_velocity = -abs(ball_x_velocity)
+    # right wall, only bounce if its inside the right paddle
+    if ball_x > screen_width:
+        if (ball_y > right_paddle_y) and (ball_y < right_paddle_y + paddle_height):
+            ball_x_velocity = -abs(ball_x_velocity)
+        else:
+            pygame.time.wait(wait_period)
+            ball_x, ball_y = ball_to_center(ball_x, ball_y)
     
     # bottom wall
     elif ball_y > screen_height:
