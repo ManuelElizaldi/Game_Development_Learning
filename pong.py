@@ -38,12 +38,15 @@ paddle_width = 20
 # wait period
 wait_period = 700
 
-# paddles
+# paddles pygame.Rect(left, top, width, height)
+# left (x) → The x-coordinate of the rectangle’s left edge.
+# top (y) → The y-coordinate of the rectangle’s top edge.
+# width (w) → The width of the rectangle.
+# height (h) → The height of the rectangle.
+
+# we never declared a paddle_x - interesting
 left_paddle = pygame.Rect((0, left_paddle_y, paddle_width, paddle_height))
 right_paddle = pygame.Rect((785, right_paddle_y, paddle_width, paddle_height))
-
-# ball
-ball = pygame.draw.circle(surface = screen, color = yellow, center = [ball_x, ball_y], radius = 30)
 
 # game loop
 run = True
@@ -53,15 +56,15 @@ while run:
      
     # drawing paddles 
     ball = pygame.draw.circle(surface = screen, color = yellow, center = [ball_x, ball_y], radius = 50)
+    # this allows movment
     ball = ball.move([ball_x_velocity, ball_y_velocity])
+    
+    # this acually moves it ball movement speed
+    ball_x += ball_x_velocity
+    ball_y += ball_y_velocity
     
     pygame.draw.rect(screen, blue, left_paddle)
     pygame.draw.rect(screen, red, right_paddle)
-    
-    
-    # ball movement speed
-    ball_x += ball_x_velocity
-    ball_y += ball_y_velocity
 
     # left wall
     # only bounce if the ball is inside the left paddle 
